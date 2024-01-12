@@ -35,7 +35,6 @@ async function createTable() {
     client.release();
   }
 }
-createTable();
 
 // Redis Client Setup
 const redis = require("redis");
@@ -49,6 +48,7 @@ const redisPublisher = redisClient.duplicate();
 // Express route handlers
 
 app.get("/", async(req, res) => {
+  await createTable();
   res.send("Hi");
 });
 
