@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: docker:latest
+      - image: cimg/node
     steps:
       - checkout
       - run:
