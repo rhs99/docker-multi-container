@@ -1,0 +1,17 @@
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: docker:latest
+
+    working_directory: ./client
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t multi-client-dev .
+      - run:
+          name: Run Tests
+          command: |
+            docker run --rm -t multi-client-dev npm test
