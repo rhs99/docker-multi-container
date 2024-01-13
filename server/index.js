@@ -47,12 +47,12 @@ const redisPublisher = redisClient.duplicate();
 
 // Express route handlers
 
-app.get("/", async(req, res) => {
+app.get("/api/create", async(req, res) => {
   await createTable();
-  res.send("Hi");
+  res.send("Created");
 });
 
-app.get("/values/all", async (req, res) => {
+app.get("/api/values/all", async (req, res) => {
   const client = await pgClient.connect();
   try {
     const values = await pgClient.query("SELECT * from values");
@@ -64,13 +64,13 @@ app.get("/values/all", async (req, res) => {
   }
 });
 
-app.get("/values/current", async (req, res) => {
+app.get("/api/values/current", async (req, res) => {
   redisClient.hgetall("values", (err, values) => {
     res.send(values);
   });
 });
 
-app.post("/values", async (req, res) => {
+app.post("/api/values", async (req, res) => {
   const index = req.body.index;
 
   if (parseInt(index) > 40) {
